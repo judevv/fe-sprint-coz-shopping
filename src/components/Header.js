@@ -24,6 +24,7 @@ const Logo = styled.h1`
     color: black;
     margin: 0;
     padding: 0;
+    flex-shrink: 0;
     gap: 12px;
 `
 
