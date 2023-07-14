@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
-import CardItem from "../components/CardItem";
+import ProductList from "../components/ProductList";
 
 /* 상품 리스트
     - 타입 상관 없이 4개 CardItem 컴포넌트를 가져와서 표출해야함
@@ -16,22 +16,30 @@ import CardItem from "../components/CardItem";
 const MainContainer = styled.section`
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    margin: 24px;
 `
 
 const ListWrapper = styled.section`
     display: flex;
     flex-direction: column;
+    gap: 12px;
+
+    & > div {
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
 `
 
 function Main () {
     return (
         <MainContainer>
             <ListWrapper>
-                <div>상품 리스트</div>
-                <CardItem />
-                <div>북마크 리스트</div>
-                <CardItem />
+                <div className="mainTitle">상품 리스트</div>
+                <ProductList/>
+                <div className="mainTitle">북마크 리스트</div>
             </ListWrapper>
         </MainContainer>
     )

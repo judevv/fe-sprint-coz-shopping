@@ -1,58 +1,98 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { styled } from "styled-components";
+import '../App.css';
 
 const CardItemWrapper = styled.section`
-    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
     width: 264px;
     height: 264px;
+    gap: 6px;
 `
 const CardItemImgWrapper = styled.div`
-    border: 1px solid red;
-    border-radius: 12px;
-    width: 264px;
-    height: 210px;
 
     & > img {
-        overflow: hidden;
+        display: block;
+        border-radius: 12px;
+        width: 264px;
+        height: 210px;
+        object-fit: cover;
     }
 `
 
 const CardItemContentWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
 `
 
-function CardItem () {
-    const [ itemData, setItemData ] = useState([]);
+const CardItemTextContentWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
 
-    useEffect(() => {
-        axios.get('http://cozshopping.codestates-seb.link/api/v1/products')
-            .then(res => setItemData(res.data))
-            .catch(err => console.log(err))
-    }, []);
+    & > div {
+        font-family: 'Inter';
+        font-size: 16px;
 
+        &.typeText {
+            font-weight: 800;
+        }
+
+        & > div {
+            font-weight: 800;
+            text-align: right;
+
+            &.dcText {
+                color: #452CDD;
+            }
+
+            &.followerText {
+                font-weight: 700;
+            }
+
+        }
+
+        &.subTitle {
+            font-weight: 400;
+        }
+
+        &.priceFollower {
+            font-weight: 400;
+        }
+    }
+
+
+`
+
+function CardItem ({itemData}) {
     return (
         <CardItemWrapper>
             <CardItemImgWrapper>
                 <img src={itemData.type === "Brand" ? itemData.brand_image_url : itemData.image_url} />
             </CardItemImgWrapper>
             <CardItemContentWrapper>
-                <div>{itemData.type === "Category" ? `#${itemData.title}` : itemData.type === "Brand" ? `${itemData.brand_name}` : `${itemData.title}`}</div>
-                <div>{itemData.type === "Product" ? `${itemData.discountPercentage}` : itemData.type === "Brand" ? `관심고객수` : null}</div>
-                <div>{itemData.type === "Exhibition" ? `${itemData.sub_title}` : null}</div>
-                <div>{itemData.type === "Product" ? `${itemData.price}원` : itemData.type === "Brand" ? `${itemData.follower}` : null}</div>
+                <CardItemTextContentWrapper>
+                    <div className="typeText">
+                        {itemData.type === "Category" ? `#${itemData.title}` : itemData.type === "Brand" ? `${itemData.brand_name}` : `${itemData.title}`}
+                    </div>
+                    <div className="dcFollowerText">
+                        {itemData.type === "Product" ?
+                        <div className="dcText">{itemData.discountPercentage}%</div> :
+                        itemData.type === "Brand" ?
+                        <div className="followerText">관심고객수</div> :
+                        null}
+                    </div>
+                </CardItemTextContentWrapper>
+                <CardItemTextContentWrapper>
+                    <div className="subTitle">
+                        {itemData.type === "Exhibition" ? `${itemData.sub_title}` : null}
+                    </div>
+                    <div className="priceFollower">
+                        {itemData.type === "Product" ? `${Number(itemData.price).toLocaleString()}원` : itemData.type === "Brand" ? `${itemData.follower.toLocaleString()}` : null}
+                    </div>
+                </CardItemTextContentWrapper>
             </CardItemContentWrapper>
         </CardItemWrapper>
     )
 }
 
 export default CardItem;
-/*
-{itemData && itemData.map((item) => {
-                return (
-                    <div>
-                        {item.title}
-                        <img src={item.image_url} alt="" />
-                    </div>
-                )
-            })}
-*/
