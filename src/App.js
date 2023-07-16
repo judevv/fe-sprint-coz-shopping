@@ -5,14 +5,37 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header.js';
 import Footer from './components/Footer';
 import Main from './pages/Main';
+import Products from './pages/Products';
+import Bookmarks from './pages/Bookmarks';
 
 
 function App() {
+  const [ itemData, setItemData ] = useState([]);
+  const [ bookmaked, setBookmarked] = useState(false);
+
+    useEffect(() => {
+        axios.get('http://cozshopping.codestates-seb.link/api/v1/products')
+            .then(res => {
+                const newData = res.data.map((data) => ({...data, isBookmarked: false}))
+                return setItemData(newData)}
+                )
+            .catch(err => console.log(err))
+    }, []);
 
   return (
     <BrowserRouter>
       <Header />
-        <Main />
+      <Routes>
+        <Route path='/'
+               element={
+                  <Main
+                      itemData={itemData}/>} />
+        <Route path='/products/list'
+               element={
+                  <Products
+                      itemData={itemData} />} />
+        <Route path='/bookmark' element={<Bookmarks />} />
+      </Routes>
       <Footer />
     </BrowserRouter>
   );

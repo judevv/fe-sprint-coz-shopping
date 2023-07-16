@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import CardItem from "./CardItem";
+import React from "react";
 import { styled } from "styled-components";
+import CardItem from "./CardItem";
 
 const ProductListContainer = styled.div`
     display: flex;
@@ -10,17 +9,7 @@ const ProductListContainer = styled.div`
     gap: 24px;
 `
 
-function ProductList () {
-    const [ itemData, setItemData ] = useState([]);
-
-    useEffect(() => {
-        axios.get('http://cozshopping.codestates-seb.link/api/v1/products')
-            .then(res => {
-                const newData = res.data.map((data) => ({...data, isBookmarked: false}))
-                return setItemData(newData)})
-            .catch(err => console.log(err))
-    }, []);
-
+function ProductList ({ itemData }) {
     const fourItems = itemData.slice(0, 4);
 
     return (

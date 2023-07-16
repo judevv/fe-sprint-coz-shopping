@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { styled } from "styled-components";
 import '../App.css';
 
@@ -63,7 +63,8 @@ const CardItemTextContentWrapper = styled.div`
 
 `
 
-function CardItem ({itemData}) {
+function CardItem ({ itemData }) {
+    console.log(itemData)
     return (
         <CardItemWrapper>
             <CardItemImgWrapper>

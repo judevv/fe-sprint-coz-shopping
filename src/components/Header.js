@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import { FiMenu, FiGift, FiStar } from 'react-icons/fi';
 import logo from '../assets/images/logo.png';
+import { ReactComponent as Hamburger } from '../assets/images/Hamburger.svg';
 
 
 const HeaderWrapper = styled.header`
@@ -10,10 +11,12 @@ const HeaderWrapper = styled.header`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    position: sticky;
-    min-width: 500px;
+    position: fixed;
+    top: 0;
+    width: 100%;
     max-height: 80px;
     padding: 25px 76px 25px 76px;
+    background-color: #fff;
     box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.10);
 `
 
@@ -124,18 +127,18 @@ function Header () {
                     <img className="logoImg" src={logo} />COZ Shopping
                 </Logo>
             </Link>
-            <MenuBtn onClick={toggleMenu}><FiMenu /></MenuBtn>
+            <MenuBtn onClick={toggleMenu}><Hamburger /></MenuBtn>
             {isOpen && (
                 <DropdownMenu>
                     <ul>
                         <li><span>OOO님, 안녕하세요!</span></li>
                         <li>
-                            <Link to="/pages/Products">
+                            <Link to="/products/list">
                                 <FiGift className="icon" />상품리스트 페이지
                             </Link>
                         </li>
                         <li>
-                            <Link to="/pages/Bookmark">
+                            <Link to="/bookmark">
                                 <FiStar className="icon" />북마크 페이지
                             </Link>
                         </li>
