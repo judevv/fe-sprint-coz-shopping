@@ -26,7 +26,7 @@ const BookmarkListContainer = styled.section`
     }
 `;
 
-function Bookmarks ({ bookmarkedItems, filteredType, setFilteredType }) {
+function Bookmarks ({ bookmarkedItems, filteredType, setFilteredType, activeFilter, setActiveFilter }) {
 
     const filteredItems = filteredType
         ? bookmarkedItems.filter((item) => item.type === filteredType)
@@ -34,7 +34,11 @@ function Bookmarks ({ bookmarkedItems, filteredType, setFilteredType }) {
 
     return (
         <BookmarkPageContainer>
-            <Filter filteredItems={filteredItems} setFilteredType={setFilteredType} />
+            <Filter
+                filteredItems={filteredItems}
+                setFilteredType={setFilteredType}
+                activeFilter={activeFilter}
+                setActiveFilter={setActiveFilter} />
             <BookmarkListContainer>
                 {bookmarkedItems.length === 0 ? (
                     <div>

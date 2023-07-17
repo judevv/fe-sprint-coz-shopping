@@ -20,7 +20,7 @@ const ProductsContainer = styled.section`
     gap: 12px;
 `
 
-function Products ({ itemData, filteredType, setFilteredType }) {
+function Products ({ itemData, filteredType, setFilteredType, activeFilter, setActiveFilter }) {
 
     useEffect(() => {
         setFilteredType('');
@@ -34,7 +34,10 @@ function Products ({ itemData, filteredType, setFilteredType }) {
 
     return (
         <ProductPageContainer>
-            <Filter setFilteredType={setFilteredType}/>
+            <Filter
+                setFilteredType={setFilteredType}
+                activeFilter={activeFilter}
+                setActiveFilter={setActiveFilter}/>
             <ProductsContainer>
             {filteredItems.map((item) => (
                 <CardItem key={item.id} itemData={item} />

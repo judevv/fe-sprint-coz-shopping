@@ -13,6 +13,7 @@ function App() {
   const [ itemData, setItemData ] = useState([]);
   const [ bookmarkedItems, setBookmarkedItems ] = useState([]);
   const [ filteredType, setFilteredType ] = useState('');
+  const [ activeFilter, setActiveFilter ] = useState('');
 
     useEffect(() => {
         axios.get('http://cozshopping.codestates-seb.link/api/v1/products')
@@ -37,9 +38,13 @@ function App() {
       setFilteredType('');
     }
 
+    function resetActiveFilter () {
+      setActiveFilter('');
+    }
+
   return (
     <BrowserRouter>
-      <Header resetFilter={resetFilter} />
+      <Header resetFilter={resetFilter} resetActiveFilter={resetActiveFilter} />
       <Routes>
         <Route path='/'
                element={
@@ -51,14 +56,18 @@ function App() {
                   <Products
                       itemData={itemData}
                       filteredType={filteredType}
-                      setFilteredType={setFilteredType} />} />
+                      setFilteredType={setFilteredType}
+                      activeFilter={activeFilter}
+                      setActiveFilter={setActiveFilter} />} />
         <Route path='/bookmark'
                element={
                   <Bookmarks
                       itemData={itemData}
                       bookmarkedItems={bookmarkedItems}
                       filteredType={filteredType}
-                      setFilteredType={setFilteredType} />} />
+                      setFilteredType={setFilteredType}
+                      activeFilter={activeFilter}
+                      setActiveFilter={setActiveFilter} />} />
       </Routes>
       <Footer />
     </BrowserRouter>

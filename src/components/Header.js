@@ -114,7 +114,7 @@ const DropdownMenu = styled.div`
 
 `
 
-function Header ({ resetFilter }) {
+function Header ({ resetFilter, resetActiveFilter }) {
     const [ isOpen, setIsOpen ] = useState(false); // 초기값 false 설정
 
     const toggleMenu = () => {
@@ -134,12 +134,18 @@ function Header ({ resetFilter }) {
                     <ul>
                         <li><span>OOO님, 안녕하세요!</span></li>
                         <li>
-                            <Link to="/products/list" onClick={resetFilter}>
+                            <Link to="/products/list"
+                                onClick={() => {
+                                    resetFilter();
+                                    resetActiveFilter();}}>
                                 <FiGift className="icon" />상품리스트 페이지
                             </Link>
                         </li>
                         <li>
-                            <Link to="/bookmark" onClick={resetFilter}>
+                            <Link to="/bookmark"
+                                onClick={() => {
+                                    resetFilter();
+                                    resetActiveFilter();}}>
                                 <FiStar className="icon" />북마크 페이지
                             </Link>
                         </li>
