@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { styled } from "styled-components";
 import CardItem from "./CardItem";
 
@@ -10,7 +10,6 @@ const BookmarkListContainer = styled.div`
         align-items: center;
         gap: 24px;
     }
-    
 `
 
 
