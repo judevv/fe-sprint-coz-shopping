@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
 import ProductList from "../components/ProductList";
-import CardItem from "../components/CardItem";
+import BookmarkList from "../components/BookmarkList";
 
 /* 상품 리스트
     - 타입 상관 없이 4개 CardItem 컴포넌트를 가져와서 표출해야함
@@ -34,13 +34,14 @@ const ListWrapper = styled.section`
     }
 `
 
-function Main ({ itemData }) {
+function Main ({ itemData, bookmarkedItems }) {
     return (
         <MainContainer>
             <ListWrapper>
                 <div className="mainTitle">상품 리스트</div>
                 <ProductList itemData={itemData}/>
                 <div className="mainTitle">북마크 리스트</div>
+                <BookmarkList bookmarkedItems={bookmarkedItems} />
             </ListWrapper>
         </MainContainer>
     )

@@ -18,6 +18,7 @@ const HeaderWrapper = styled.header`
     padding: 25px 76px 25px 76px;
     background-color: #fff;
     box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.10);
+    z-index: 1;
 `
 
 const Logo = styled.h1`

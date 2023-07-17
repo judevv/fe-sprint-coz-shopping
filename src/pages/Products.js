@@ -2,7 +2,7 @@ import React from "react";
 import { styled } from "styled-components";
 import CardItem from "../components/CardItem";
 
-const ProductsContiner = styled.section`
+const ProductsContainer = styled.section`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,14 +11,12 @@ const ProductsContiner = styled.section`
 `
 
 function Products ({ itemData }) {
-    console.log(itemData)
-
     return (
-        <ProductsContiner>
+        <ProductsContainer>
             {itemData.map((item) => (
                 <CardItem key={item.id} itemData={item} />
             ))}
-        </ProductsContiner>
+        </ProductsContainer>
     )
 }
 

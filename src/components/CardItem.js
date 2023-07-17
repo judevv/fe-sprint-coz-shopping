@@ -1,6 +1,7 @@
 import React from "react";
 import { styled } from "styled-components";
 import '../App.css';
+import BookmarkBtn from "./BookmarkBtn";
 
 const CardItemWrapper = styled.section`
     display: flex;
@@ -10,14 +11,17 @@ const CardItemWrapper = styled.section`
     gap: 6px;
 `
 const CardItemImgWrapper = styled.div`
+    position: relative;
+`
 
+const CardItemImg = styled.div`
     & > img {
-        display: block;
-        border-radius: 12px;
-        width: 264px;
-        height: 210px;
-        object-fit: cover;
-    }
+            display: block;
+            border-radius: 12px;
+            width: 264px;
+            height: 210px;
+            object-fit: cover;
+        }
 `
 
 const CardItemContentWrapper = styled.div`
@@ -59,16 +63,27 @@ const CardItemTextContentWrapper = styled.div`
             font-weight: 400;
         }
     }
-
-
 `
+const BoomarkBtnWrapper = styled.div`
+    position: absolute;
+    top: 174px;
+    bottom: 12px;
+    right: 12px;
+    left: 228px;
+`
+
 
 function CardItem ({ itemData }) {
     console.log(itemData)
     return (
         <CardItemWrapper>
             <CardItemImgWrapper>
-                <img src={itemData.type === "Brand" ? itemData.brand_image_url : itemData.image_url} />
+                <CardItemImg>
+                    <img src={itemData.type === "Brand" ? itemData.brand_image_url : itemData.image_url} />
+                </CardItemImg>
+                <BoomarkBtnWrapper>
+                    <BookmarkBtn itemData={itemData} />
+                </BoomarkBtnWrapper>
             </CardItemImgWrapper>
             <CardItemContentWrapper>
                 <CardItemTextContentWrapper>

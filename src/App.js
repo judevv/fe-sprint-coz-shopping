@@ -11,7 +11,7 @@ import Bookmarks from './pages/Bookmarks';
 
 function App() {
   const [ itemData, setItemData ] = useState([]);
-  const [ bookmaked, setBookmarked] = useState(false);
+  const [ bookmarkedItems, setBookmarkedItems ] = useState([]);
 
     useEffect(() => {
         axios.get('http://cozshopping.codestates-seb.link/api/v1/products')
@@ -22,6 +22,16 @@ function App() {
             .catch(err => console.log(err))
     }, []);
 
+    useEffect (() => {
+        const bookmarkState = localStorage.getItem("bookmarkState");
+
+        if (bookmarkState !== null) {
+            const bookmarkedIds = JSON.parse(bookmarkState);
+            const filteredItems = itemData.filter((item) => bookmarkedIds.includes(item.id));
+            setBookmarkedItems(filteredItems);
+        }
+    }, [itemData])
+
   return (
     <BrowserRouter>
       <Header />
@@ -29,12 +39,17 @@ function App() {
         <Route path='/'
                element={
                   <Main
-                      itemData={itemData}/>} />
+                      itemData={itemData}
+                      bookmarkedItems={bookmarkedItems}/>} />
         <Route path='/products/list'
                element={
                   <Products
                       itemData={itemData} />} />
-        <Route path='/bookmark' element={<Bookmarks />} />
+        <Route path='/bookmark'
+               element={
+                  <Bookmarks
+                      itemData={itemData}
+                      bookmarkedItems={bookmarkedItems} />} />
       </Routes>
       <Footer />
     </BrowserRouter>

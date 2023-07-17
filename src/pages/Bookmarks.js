@@ -1,13 +1,38 @@
 import React, { useState, useEffect } from "react";
 import { styled } from "styled-components";
-import BookmarkBtn from "../components/BookmarkBtn";
-import { ReactComponent as BookmarkOff } from '../assets/images/BookmarkOff.svg';
-import { ReactComponent as BookmarkOn } from '../assets/images/BookmarkOn.svg';
+import CardItem from "../components/CardItem";
 
-function Bookmarks () {
+const BookmarkListContainer = styled.section`
+
+    & > div:first-child {
+        height: 100vh;
+    }
+
+    & > div:last-child {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+`;
+
+function Bookmarks ({ bookmarkedItems }) {
 
     return (
-       <div></div>
+        <BookmarkListContainer>
+            {bookmarkedItems.length === 0 ? (
+                <div>
+                    북마크한 아이템이 없습니다.
+                </div>
+            ) : (
+                <div>
+                {bookmarkedItems.map((item) => (
+                    <CardItem key={item.id} itemData={item} bookmarkedItems={bookmarkedItems} />
+                ))}
+                </div>
+            )}
+        </BookmarkListContainer>
     )
 }
 
