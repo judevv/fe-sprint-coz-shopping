@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "styled-components";
 import '../App.css';
 import BookmarkBtn from "./BookmarkBtn";
+import Modal from "./Modal";
+
 
 const CardItemWrapper = styled.section`
     display: flex;
@@ -74,40 +76,58 @@ const BoomarkBtnWrapper = styled.div`
 
 
 function CardItem ({ itemData }) {
-    console.log(itemData)
+
+    const [ isModalOpen, setIsModalOpen ] = useState(false);
+
+    function modalHandler () {
+        setIsModalOpen(!isModalOpen)
+    }
+
+    function closeModal () {
+        setIsModalOpen(false);
+    }
+
     return (
-        <CardItemWrapper>
-            <CardItemImgWrapper>
-                <CardItemImg>
-                    <img src={itemData.type === "Brand" ? itemData.brand_image_url : itemData.image_url} />
-                </CardItemImg>
-                <BoomarkBtnWrapper>
-                    <BookmarkBtn itemData={itemData} />
-                </BoomarkBtnWrapper>
-            </CardItemImgWrapper>
-            <CardItemContentWrapper>
-                <CardItemTextContentWrapper>
-                    <div className="typeText">
-                        {itemData.type === "Category" ? `#${itemData.title}` : itemData.type === "Brand" ? `${itemData.brand_name}` : `${itemData.title}`}
-                    </div>
-                    <div className="dcFollowerText">
-                        {itemData.type === "Product" ?
-                        <div className="dcText">{itemData.discountPercentage}%</div> :
-                        itemData.type === "Brand" ?
-                        <div className="followerText">관심고객수</div> :
-                        null}
-                    </div>
-                </CardItemTextContentWrapper>
-                <CardItemTextContentWrapper>
-                    <div className="subTitle">
-                        {itemData.type === "Exhibition" ? `${itemData.sub_title}` : null}
-                    </div>
-                    <div className="priceFollower">
-                        {itemData.type === "Product" ? `${Number(itemData.price).toLocaleString()}원` : itemData.type === "Brand" ? `${itemData.follower.toLocaleString()}` : null}
-                    </div>
-                </CardItemTextContentWrapper>
-            </CardItemContentWrapper>
-        </CardItemWrapper>
+        <>
+            {isModalOpen ?
+                <Modal
+                    itemData={itemData}
+                    isModalOpen={isModalOpen}
+                    closeModal={closeModal}
+                    /> : null}
+            <CardItemWrapper>
+                <CardItemImgWrapper>
+                    <CardItemImg onClick={modalHandler}>
+                        <img src={itemData.type === "Brand" ? itemData.brand_image_url : itemData.image_url} />
+                    </CardItemImg>
+                    <BoomarkBtnWrapper>
+                        <BookmarkBtn itemData={itemData} />
+                    </BoomarkBtnWrapper>
+                </CardItemImgWrapper>
+                <CardItemContentWrapper>
+                    <CardItemTextContentWrapper>
+                        <div className="typeText">
+                            {itemData.type === "Category" ? `#${itemData.title}` : itemData.type === "Brand" ? `${itemData.brand_name}` : `${itemData.title}`}
+                        </div>
+                        <div className="dcFollowerText">
+                            {itemData.type === "Product" ?
+                            <div className="dcText">{itemData.discountPercentage}%</div> :
+                            itemData.type === "Brand" ?
+                            <div className="followerText">관심고객수</div> :
+                            null}
+                        </div>
+                    </CardItemTextContentWrapper>
+                    <CardItemTextContentWrapper>
+                        <div className="subTitle">
+                            {itemData.type === "Exhibition" ? `${itemData.sub_title}` : null}
+                        </div>
+                        <div className="priceFollower">
+                            {itemData.type === "Product" ? `${Number(itemData.price).toLocaleString()}원` : itemData.type === "Brand" ? `${itemData.follower.toLocaleString()}` : null}
+                        </div>
+                    </CardItemTextContentWrapper>
+                </CardItemContentWrapper>
+            </CardItemWrapper>
+        </>
     )
 }
 
