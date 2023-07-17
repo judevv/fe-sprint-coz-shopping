@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { styled } from "styled-components";
 import CardItem from "../components/CardItem";
+import Filter from "../components/Filter";
+
+const BookmarkPageContainer = styled.section`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding-top: 24px;
+`
 
 const BookmarkListContainer = styled.section`
 
@@ -17,22 +26,29 @@ const BookmarkListContainer = styled.section`
     }
 `;
 
-function Bookmarks ({ bookmarkedItems }) {
+function Bookmarks ({ bookmarkedItems, filteredType, setFilteredType }) {
+
+    const filteredItems = filteredType
+        ? bookmarkedItems.filter((item) => item.type === filteredType)
+        : bookmarkedItems;
 
     return (
-        <BookmarkListContainer>
-            {bookmarkedItems.length === 0 ? (
-                <div>
-                    북마크한 아이템이 없습니다.
-                </div>
-            ) : (
-                <div>
-                {bookmarkedItems.map((item) => (
-                    <CardItem key={item.id} itemData={item} bookmarkedItems={bookmarkedItems} />
-                ))}
-                </div>
-            )}
-        </BookmarkListContainer>
+        <BookmarkPageContainer>
+            <Filter filteredItems={filteredItems} setFilteredType={setFilteredType} />
+            <BookmarkListContainer>
+                {bookmarkedItems.length === 0 ? (
+                    <div>
+                        북마크한 아이템이 없습니다.
+                    </div>
+                ) : (
+                    <div>
+                    {filteredItems.map((item) => (
+                        <CardItem key={item.id} itemData={item} bookmarkedItems={bookmarkedItems} />
+                    ))}
+                    </div>
+                )}
+            </BookmarkListContainer>
+        </BookmarkPageContainer>
     )
 }
 

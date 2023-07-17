@@ -12,6 +12,7 @@ import Bookmarks from './pages/Bookmarks';
 function App() {
   const [ itemData, setItemData ] = useState([]);
   const [ bookmarkedItems, setBookmarkedItems ] = useState([]);
+  const [ filteredType, setFilteredType ] = useState('');
 
     useEffect(() => {
         axios.get('http://cozshopping.codestates-seb.link/api/v1/products')
@@ -32,9 +33,13 @@ function App() {
         }
     }, [itemData])
 
+    function resetFilter () {
+      setFilteredType('');
+    }
+
   return (
     <BrowserRouter>
-      <Header />
+      <Header resetFilter={resetFilter} />
       <Routes>
         <Route path='/'
                element={
@@ -44,12 +49,16 @@ function App() {
         <Route path='/products/list'
                element={
                   <Products
-                      itemData={itemData} />} />
+                      itemData={itemData}
+                      filteredType={filteredType}
+                      setFilteredType={setFilteredType} />} />
         <Route path='/bookmark'
                element={
                   <Bookmarks
                       itemData={itemData}
-                      bookmarkedItems={bookmarkedItems} />} />
+                      bookmarkedItems={bookmarkedItems}
+                      filteredType={filteredType}
+                      setFilteredType={setFilteredType} />} />
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -89,12 +89,13 @@ function CardItem ({ itemData }) {
 
     return (
         <>
-            {isModalOpen ?
+            {isModalOpen && (
                 <Modal
-                    itemData={itemData}
-                    isModalOpen={isModalOpen}
-                    closeModal={closeModal}
-                    /> : null}
+                itemData={itemData}
+                isModalOpen={isModalOpen}
+                closeModal={closeModal}
+                />
+            )}
             <CardItemWrapper>
                 <CardItemImgWrapper>
                     <CardItemImg onClick={modalHandler}>
